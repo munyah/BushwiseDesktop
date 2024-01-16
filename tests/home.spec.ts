@@ -1,7 +1,11 @@
 import { test, expect } from '@playwright/test';
+import HomePage from '../pages/home.page';
 
 test.describe('Home', () => {
+    let homePage;
     test('Open HomePage and verify title', async ({ page }) => {
+        homePage = new HomePage(page);
+        
         // open url
         await page.goto('https://www.bushwise.co.za/');
 

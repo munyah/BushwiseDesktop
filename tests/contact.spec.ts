@@ -5,13 +5,14 @@ test.describe("Contact", () => {
     // open contact page
     await page.goto("https://www.bushwise.co.za/contact-us");
 
+    // Access the Playwright Inspector via code
+    await page.pause();
+
     await page.waitForTimeout(4000);
 
     // Using name
-    const frame1 = page.frame("htmlComp-iframe");
+    const frame1 = await page.frame("htmlComp-iframe");
 
-    // Wait for the frame to be visible with a timeout of 10 seconds
-    // await page.waitForSelector('iframe[name="htmlComp-iframe"]', { state: 'visible', timeout: 30000 });
 
     // fill out the input fields
     await frame1?.fill('input[placeholder="First Name*"]', "Automated");
@@ -30,10 +31,8 @@ test.describe("Contact", () => {
     await frame1?.click("input#tc_agree");
     await frame1?.click("input#newsletter_signup");
 
-    // click submit
+    // click submit (retry 2 times)
     const submitButton = await frame1?.$("button[type='submit']");
-
-    // click submit again (retry 2 times)
     for (let i = 0; i < 2; i++) {
       await submitButton?.click();
     }
