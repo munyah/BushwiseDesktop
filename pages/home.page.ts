@@ -1,11 +1,13 @@
+import { Page, Locator } from "@playwright/test";
+
 class HomePage {
-    page: any;
-    goIntoTheWildBtn: any;
-    headingText: any;
-    nameAndLogo: any;
-    navLinks: any;
+    page: Page;
+    goIntoTheWildBtn: Locator;
+    headingText: Locator;
+    nameAndLogo: Locator;
+    navLinks: Locator;
     
-    constructor(page){
+    constructor(page: Page){
         this.page = page;
         this.goIntoTheWildBtn = page.locator("a[aria-label='Go into the wild'] div[class='StylableButton2545352419__container']");
         this.headingText = page.locator('text=Choose your');

@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import HomePage from '../pages/home.page';
 
 test.describe('Home', () => {
-    let homePage;
+    let homePage: HomePage;
     test('Open HomePage and verify title', async ({ page }) => {
         homePage = new HomePage(page);
 
