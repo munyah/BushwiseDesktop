@@ -7,7 +7,7 @@ test.describe('Home', () => {
         homePage = new HomePage(page);
 
         // open url
-        await page.goto('https://www.bushwise.co.za/');
+        await homePage.navigate();
 
         // verify title
         await expect(page).toHaveTitle('Best Field Guide Training #1 Courses in South Africa | Bushwise')
@@ -27,7 +27,7 @@ test.describe('Home', () => {
         homePage = new HomePage(page);
 
         // open url
-        await page.goto('https://www.bushwise.co.za/');
+        await homePage.navigate();
 
         // click the button 
         await homePage.goIntoTheWildBtn.click();
@@ -43,7 +43,7 @@ test.describe('Home', () => {
         homePage = new HomePage(page);
 
         // open url
-        await page.goto('https://www.bushwise.co.za/');
+        await homePage.navigate();
 
         // find the text locator  
         const headingText = homePage.headingText;
@@ -57,7 +57,7 @@ test.describe('Home', () => {
         homePage = new HomePage(page);
 
         // open url
-        await page.goto('https://www.bushwise.co.za/');
+        await homePage.navigate();
 
         // find the name and logo 
         const nameAndLogo = homePage.nameAndLogo;
@@ -77,7 +77,7 @@ test.describe('Home', () => {
         ];
 
         // open url
-        await page.goto('https://www.bushwise.co.za/');
+        await homePage.navigate();
 
         // find the nav links
         // const navLinks = page.locator('//*[@class="StylableHorizontalMenu3372578893__menu"]//*[@class="itemDepth02233374943__itemWrapper wixui-horizontal-menu__item wixui-horizontal-menu__submenu-title"]');
