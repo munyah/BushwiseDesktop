@@ -14,10 +14,9 @@ class ContactPage {
     this.page = page;
     this.frame1 = page.frameLocator("htmlComp-iframe");
     this.frame1 = page.frameLocator(ContactPage.iframeLoactor);
+
     // Set successText locator within the frame
     this.successTextLocator = this.frame1.locator(ContactPage.thankYouMessage);
-    // Set successText locator within the frame
-    // this.successTextLocator = this.frame1.locator('//h1[normalize-space()="Thank you for reaching out to Bushwise."]');
   }
 
   async navigate() {

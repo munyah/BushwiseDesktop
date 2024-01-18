@@ -1,5 +1,3 @@
-// contact.spec.ts
-
 import { test, expect } from "@playwright/test";
 import ContactPage from "../pages/contact.page";
 

@@ -80,9 +80,6 @@ test.describe('Home', () => {
         await homePage.navigate();
 
         // find the nav links
-        // const navLinks = page.locator('//*[@class="StylableHorizontalMenu3372578893__menu"]//*[@class="itemDepth02233374943__itemWrapper wixui-horizontal-menu__item wixui-horizontal-menu__submenu-title"]');
-        // const navLinks = page.locator('//*[@class="StylableHorizontalMenu3372578893__menu"]//*[@class="itemDepth02233374943__itemWrapper wixui-horizontal-menu__item wixui-horizontal-menu__submenu-title"]').nth(1);
-        // const navLinks = page.locator('#zak-primary-menu li[id*=menu]');
         const navLinks = homePage.navLinks.nth(1);
 
         // print out all the links
@@ -91,7 +88,6 @@ test.describe('Home', () => {
         }
 
         // verify nav links text
-        // expect(await navLinks.allTextContents()).toEqual(expectedLinks);
         expect(await navLinks.textContent()).toContain(expectedLinks[1]);
         
     })
