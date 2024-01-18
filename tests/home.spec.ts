@@ -3,48 +3,27 @@ import HomePage from '../pages/home.page';
 
 test.describe('Home', () => {
     let homePage: HomePage;
-    test('Open HomePage and verify title', async ({ page }) => {
+
+    test.beforeEach(async ({ page }) => {
         homePage = new HomePage(page);
-
-        // open url
         await homePage.navigate();
-
+        
+     })
+    test('Open HomePage and verify title', async ({ page }) => {
         // verify title
         await expect(page).toHaveTitle('Best Field Guide Training #1 Courses in South Africa | Bushwise')
     })
 
-    test('Open About us page and verify title', async ({ page }) => {
-        homePage = new HomePage(page);
-
-        // open url
-        await page.goto('https://www.bushwise.co.za/about-us');
-
-        // verify title
-        await expect(page).toHaveTitle('Learn more about us | Bushwise')
-    })
-
     test('Click the Go into the wild button using CSS Selector', async ({ page }) => {
-        homePage = new HomePage(page);
-
-        // open url
-        await homePage.navigate();
-
         // click the button 
         await homePage.goIntoTheWildBtn.click();
 
         // verify url has #wildlife-courses
-        // await expect(page).toHaveURL('https://www.bushwise.co.za/wildlife-courses');
         await expect(page).toHaveURL(/.*wildlife-courses/);
         
     })
 
-
-    test('Verify heading text is visible using text selector', async ({ page }) => {
-        homePage = new HomePage(page);
-
-        // open url
-        await homePage.navigate();
-
+    test('Verify heading text is visible using text selector', async () => {
         // find the text locator  
         const headingText = homePage.headingText;
 
@@ -53,12 +32,7 @@ test.describe('Home', () => {
         
     })
 
-    test('Verify Bushwise name and logo is visible using xpath selector', async ({ page }) => {
-        homePage = new HomePage(page);
-
-        // open url
-        await homePage.navigate();
-
+    test('Verify Bushwise name and logo is visible using xpath selector', async () => {
         // find the name and logo 
         const nameAndLogo = homePage.nameAndLogo;
 
@@ -67,17 +41,13 @@ test.describe('Home', () => {
         
     })
 
-    test('Verify text of all nav links', async ({ page }) => {
-        homePage = new HomePage(page);
+    test('Verify text of all nav links', async () => {
         const expectedLinks = [
             "ONLINE COURSES",
     "FGASA Field Guiding online course",
     "Nature Enthusiast online course",
     "Introduction Field Guiding online course",
         ];
-
-        // open url
-        await homePage.navigate();
 
         // find the nav links
         const navLinks = homePage.navLinks.nth(1);
