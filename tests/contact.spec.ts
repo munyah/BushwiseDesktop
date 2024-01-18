@@ -6,7 +6,7 @@ test("Fill contact form and verify success message", async ({ page }) => {
 
   // navigate to contact page
   await contactPage.navigate();
-  await page.waitForTimeout(4000);
+  await page.waitForTimeout(5000);
   
 
   // fill out the input fields and submit

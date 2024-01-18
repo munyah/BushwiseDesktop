@@ -17,7 +17,7 @@ class HomePage {
     }
 
     async navigate(){
-        await this.page.goto('https://www.bushwise.co.za/');
+        await this.page.goto('/');
     }
 
     getNavLinksText(){

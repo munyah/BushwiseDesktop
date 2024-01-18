@@ -19,7 +19,7 @@ class ContactPage {
   }
 
   async navigate() {
-    await this.page.goto("https://www.bushwise.co.za/contact-us");
+    await this.page.goto('/contact-us');
   }
 
   async submitForm(
