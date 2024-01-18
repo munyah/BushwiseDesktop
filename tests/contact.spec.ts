@@ -19,14 +19,15 @@ test("Fill contact form and verify success message", async ({ page }) => {
   );
 
   // Using the static constants
-  const frame1 = page.frame(ContactPage.iframeLoactor);
-  const successAlert = await frame1?.waitForSelector(
+  const frame1 = page.frame(ContactPage.iframeLocator);
+  const successAlert = await frame1!.waitForSelector(
     ContactPage.thankYouMessage,
     { state: "visible" }
   );
 
+  // verify success message
   expect(successAlert).toBeTruthy();
-  expect(await successAlert?.textContent()).toContain(
+  expect(await successAlert!.textContent()).toContain(
     "Thank you for reaching out to Bushwise."
   );
 });
