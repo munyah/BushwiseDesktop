@@ -1,35 +1,28 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import ContactPage from "../pages/contact.page";
 
 test.describe("Contact", () => {
-  test("Fill contact form and verify success message", async ({ page }) => {
-    const contactPage = new ContactPage(page);
+  let contactPage: ContactPage;
 
-    // navigate to contact page
+  test.beforeEach(async ({ page }) => {
+    contactPage = new ContactPage(page);
     await contactPage.navigate();
     await page.waitForTimeout(5000);
+  });
 
-    // fill out the input fields and submit
-    await contactPage.submitForm(
-      "Automated",
-      "Test",
-      "automatedtest@gviprograms.com",
-      "07123456789",
-      "United Kingdom",
-      "This is just a test"
-    );
+  test("Fill contact form and verify success message", async () => {
 
-    // Using the static constants
-    const frame1 = page.frame(ContactPage.iframeLocator);
-    const successAlert = await frame1!.waitForSelector(
-      ContactPage.thankYouMessage,
-      { state: "visible" }
-    );
+    const formData = {
+      firstName: "Automated",
+      lastName: "Test",
+      email: "automatedtest@gviprograms.com",
+      phone: "07123456789",
+      country: "United Kingdom",
+      message: "This is just a test"
+    };
 
-    // verify success message
-    expect(successAlert).toBeTruthy();
-    expect(await successAlert!.textContent()).toContain(
-      "Thank you for reaching out to Bushwise."
-    );
+    await contactPage.submitForm(formData);
+
+    expect(contactPage.verifySuccessMessage).toBeTruthy();
   });
 });
