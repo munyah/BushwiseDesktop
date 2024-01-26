@@ -16,7 +16,7 @@ const socialMediaTests: SocialMediaTest[] = [
 
 test.describe("SocialMedia", () => {
   let socialMedia: SocialMedia;
-  let newPage: Page;
+  let page: Page;
 
   test.beforeEach(async ({ page }) => {
     socialMedia = new SocialMedia(page);
@@ -26,14 +26,14 @@ test.describe("SocialMedia", () => {
 
   socialMediaTests.forEach(({ platform, urlRegex }) => {
     test(`Go to Bushwise ${platform} page and verify URL`, async () => {
-      newPage = await socialMedia.navigateToSocialMediaTab(platform);
-      await expect(newPage).toHaveURL(urlRegex);
+      page = await socialMedia.navigateToSocialMediaTab(platform);
+      await expect(page).toHaveURL(urlRegex);
     });
   });
 
   test.afterEach(async () => {
-    if (newPage) {
-      await newPage.close();
+    if (page) {
+      await page.close();
     }
   });
 });
