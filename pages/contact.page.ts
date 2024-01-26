@@ -32,38 +32,38 @@ class ContactPage {
   }
 
   /**
-   * Submit the contact form with the provided form data.
-   * @param formData - Object containing form data (firstName, lastName, email, etc.).
-   * @returns Promise<void>
-   */
-  async submitForm(formData: {
-    firstName: string,
-    lastName: string,
-    email: string,
-    phone: string,
-    country: string,
-    message: string
-  }) {
-    const frame1 = this.page.frame("htmlComp-iframe");
-  
-    // Fill out the input fields with form data
-    await frame1!.fill('input[placeholder="First Name*"]', formData.firstName);
-    await frame1!.fill('input[placeholder="Last Name*"]', formData.lastName);
-    await frame1!.fill('input[placeholder="Email*"]', formData.email);
-    await frame1!.fill('input[placeholder="Phone*"]', formData.phone);
-    await frame1!.selectOption('select[name="country"]', { value: formData.country });
-    await frame1!.fill("textarea", formData.message);
-  
-    // Select checkboxes
-    await frame1!.click("input#tc_agree");
-    await frame1!.click("input#newsletter_signup");
-  
-    // Click submit (retry 2 times)
-    const submitButton = await frame1!.$("button[type='submit']");
-    for (let i = 0; i < 2; i++) {
-      await submitButton?.click();
-    }
+ * Submit the contact form with the provided form data.
+ * @param formData - Object containing form data (firstName, lastName, email, etc.).
+ * @returns Promise<void>
+ */
+async submitForm(formData: {
+  firstName: string,
+  lastName: string,
+  email: string,
+  phone: string,
+  country: string,
+  message: string
+}): Promise<void> {
+  const frame1 = this.page.frame("htmlComp-iframe");
+
+  // Fill out the input fields with form data
+  await frame1!.fill('input[placeholder="First Name*"]', formData.firstName);
+  await frame1!.fill('input[placeholder="Last Name*"]', formData.lastName);
+  await frame1!.fill('input[placeholder="Email*"]', formData.email);
+  await frame1!.fill('input[placeholder="Phone*"]', formData.phone);
+  await frame1!.selectOption('select[name="country"]', { value: formData.country });
+  await frame1!.fill("textarea", formData.message);
+
+  // Select checkboxes
+  await frame1!.click("input#tc_agree");
+  await frame1!.click("input#newsletter_signup");
+
+  // Click submit (retry 2 times)
+  const submitButton = await frame1!.$("button[type='submit']");
+  for (let i = 0; i < 2; i++) {
+    await submitButton?.click();
   }
+}
 
   /**
    * Verify if the success message is displayed after form submission.
