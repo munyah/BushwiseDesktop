@@ -1,15 +1,22 @@
 import { expect, test, Page } from "@playwright/test";
 import { SocialMedia } from "../pages/socialMedia.page";
 
+interface SocialMediaTest {
+  platform: string;
+  urlRegex: RegExp;
+}
+
+const socialMediaTests: SocialMediaTest[] = [
+  { platform: "TikTok", urlRegex: /.*tiktok.*/i },
+  { platform: "Instagram", urlRegex: /.*instagram.*/i },
+  { platform: "YouTube", urlRegex: /.*bushwise_sa.*/i },
+  { platform: "Facebook", urlRegex: /.*bushwise/ },
+  { platform: "LinkedIn", urlRegex: /.*linkedin.*/i }
+];
+
 test.describe("SocialMedia", () => {
   let socialMedia: SocialMedia;
   let newPage: Page;
-
-  const tikTokURL= /.*tiktok.*/i;
-  const instagramURL= /.*instagram.*/i;
-  const youTubeURL = /.*bushwise_sa.*/i;
-  const facebookURL = /.*bushwise/;
-  const linkedInURL= /.*linkedin.*/i;
 
   test.beforeEach(async ({ page }) => {
     socialMedia = new SocialMedia(page);
@@ -17,31 +24,12 @@ test.describe("SocialMedia", () => {
     await socialMedia.scrollToBottom();
   });
 
-  test("Go to Bushwise TikTok page and verify URL", async () => {
-    newPage = await socialMedia.navigateToSocialMediaTab("TikTok");
-    await expect(newPage).toHaveURL(tikTokURL);
+  socialMediaTests.forEach(({ platform, urlRegex }) => {
+    test(`Go to Bushwise ${platform} page and verify URL`, async () => {
+      newPage = await socialMedia.navigateToSocialMediaTab(platform);
+      await expect(newPage).toHaveURL(urlRegex);
+    });
   });
-
-  test("Go to Bushwise Instagram page and verify URL", async () => {
-    newPage = await socialMedia.navigateToSocialMediaTab("Instagram");
-    await expect(newPage).toHaveURL(instagramURL);
-  });
-
-  test("Go to YouTube channel and verify URL", async () => {
-    newPage = await socialMedia.navigateToSocialMediaTab("YouTube");
-    await expect(newPage).toHaveURL(youTubeURL);
-  });
-
-  test("Go to Facebook page and verify URL", async () => {
-    newPage = await socialMedia.navigateToSocialMediaTab("Facebook");
-    await expect(newPage).toHaveURL(facebookURL);
-  });
-
-  test("Go to LinkedIn page and verify URL", async () => {
-    newPage = await socialMedia.navigateToSocialMediaTab("LinkedIn");
-    await expect(newPage).toHaveURL(linkedInURL);
-});
-
 
   test.afterEach(async () => {
     if (newPage) {
