@@ -5,11 +5,11 @@ test.describe("SocialMedia", () => {
   let socialMedia: SocialMedia;
   let newPage: Page;
 
-  const tikTokTitle = "Log in | TikTok" || "Bushwise Field Guides 🦁 (@bushwise) | TikTok";
-  const instagramTitle = "Page couldn't load • Instagram" || "Bushwise (@bushwise.sa) • Instagram photos and videos";
-  const youTubeTitle = "Bushwise - YouTube";
-  const facebookTitle = "Bushwise | Facebook";
-  const linkedInTitle = "Sign Up | LinkedIn" || "Bushwise Field Guides | LinkedIn";
+  const tikTokURL= /.*tiktok.*/i;
+  const instagramURL= /.*instagram.*/i;
+  const youTubeURL = /.*bushwise_sa.*/i;
+  const facebookURL = /.*bushwise/;
+  const linkedInURL= /.*linkedin.*/i;
 
   test.beforeEach(async ({ page }) => {
     socialMedia = new SocialMedia(page);
@@ -17,30 +17,31 @@ test.describe("SocialMedia", () => {
     await socialMedia.scrollToBottom();
   });
 
-  test("Go to Bushwise TikTok page and verify title", async () => {
+  test("Go to Bushwise TikTok page and verify URL", async () => {
     newPage = await socialMedia.navigateToSocialMediaTab("TikTok");
-    await expect(newPage).toHaveTitle(tikTokTitle);
+    await expect(newPage).toHaveURL(tikTokURL);
   });
 
-  test("Go to Bushwise Instagram page and verify title", async () => {
+  test("Go to Bushwise Instagram page and verify URL", async () => {
     newPage = await socialMedia.navigateToSocialMediaTab("Instagram");
-    await expect(newPage).toHaveTitle(instagramTitle);
+    await expect(newPage).toHaveURL(instagramURL);
   });
 
-  test("Go to YouTube channel and verify title", async () => {
+  test("Go to YouTube channel and verify URL", async () => {
     newPage = await socialMedia.navigateToSocialMediaTab("YouTube");
-    await expect(newPage).toHaveTitle(youTubeTitle);
+    await expect(newPage).toHaveURL(youTubeURL);
   });
 
-  test("Go to Facebook page and verify title", async () => {
+  test("Go to Facebook page and verify URL", async () => {
     newPage = await socialMedia.navigateToSocialMediaTab("Facebook");
-    await expect(newPage).toHaveTitle(facebookTitle);
+    await expect(newPage).toHaveURL(facebookURL);
   });
 
-  test("Go to LinkedIn page and verify title", async () => {
+  test("Go to LinkedIn page and verify URL", async () => {
     newPage = await socialMedia.navigateToSocialMediaTab("LinkedIn");
-    await expect(newPage).toHaveTitle(linkedInTitle);
-  });
+    await expect(newPage).toHaveURL(linkedInURL);
+});
+
 
   test.afterEach(async () => {
     if (newPage) {
