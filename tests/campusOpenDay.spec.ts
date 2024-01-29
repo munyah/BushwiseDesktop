@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import CampusOpenDayPage from "../pages/campusOpenDay.page";
 
-test.describe("Contact", () => {
+test.describe("CampusOpenDay", () => {
   let campusOpenDayPage: CampusOpenDayPage;
 
   test.beforeEach(async ({ page }) => {

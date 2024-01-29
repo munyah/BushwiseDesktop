@@ -13,7 +13,7 @@ class DownloadPage {
   // Define static constants for locators
   static iframeLocator = "htmlComp-iframe";
   static thankYouMessage =
-    '//h1[normalize-space()="Thank you for reaching out to Bushwise."]';
+    '//h1[normalize-space()="Thank you for downloading the Bushwise brochure."]';
 
   constructor(page: Page) {
     this.page = page;

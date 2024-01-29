@@ -19,7 +19,7 @@ test.describe("Enquire", () => {
       phone: "07123456789",
       country: "United Kingdom",
       course: "ZABF0039N",
-      date: "2025-07-08                                                                                          ",
+      date: "2025-07-08",
       message: "This is just a test"
     };
 

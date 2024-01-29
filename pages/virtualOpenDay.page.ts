@@ -28,7 +28,7 @@ class VirtualOpenDayPage {
    * @returns Promise<void>
    */
   async navigate() {
-    await this.page.goto('/campus-open-day');
+    await this.page.goto('/virtual-open-day');
   }
 
   /**
@@ -41,7 +41,7 @@ class VirtualOpenDayPage {
     lastName: string,
     email: string,
     phone: string,
-    country: string,
+    country: string
   }): Promise<void> {
     const frame1 = this.page.frame("htmlComp-iframe");
   
