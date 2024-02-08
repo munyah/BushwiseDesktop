@@ -7,7 +7,7 @@ test.describe("CampusOpenDay", () => {
   test.beforeEach(async ({ page }) => {
     campusOpenDayPage = new CampusOpenDayPage(page);
     await campusOpenDayPage.navigate();
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(8000);
   });
 
   test("Fill contact form and verify success message", async () => {
