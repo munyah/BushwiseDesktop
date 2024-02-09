@@ -19,7 +19,7 @@ class ConservationWithGVIPage extends BasePage {
     volunteerInLimpopo: Locator;
 
     constructor(page: Page) {
-      super(page);
+        super(page);
         this.page = page;
         this.conservationWithGVIHeading = page.locator("//span[@class='wixui-rich-text__text'][normalize-space()='Conservation with GVI']");
         this.gviLimpopoHeading = page.locator("//h3[normalize-space()='GVI Limpopo']");
@@ -41,14 +41,9 @@ class ConservationWithGVIPage extends BasePage {
         await this.page.waitForLoadState();
     }
 
-  //   async navigateAndVerifyTitle(link: () => Promise<Page>, expectedTitle: string) {
-  //     const newPage = await link();
-  //     await expect(newPage).toHaveTitle(expectedTitle);
-  //     await newPage.close();
-  // }
-
     async navigateToPageAndClick(link: Locator) {
-      await this.page.waitForLoadState('domcontentloaded', { timeout: 60000 });
+        await link.click();
+        await this.page.waitForLoadState('domcontentloaded', { timeout: 60000 });
         const [newPage] = await Promise.all([
             this.page.waitForEvent("popup"),
             link.click(),

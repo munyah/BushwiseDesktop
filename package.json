@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "build": "npx playwright test tests/home.spec.ts && npx allure generate TestResults --clean"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

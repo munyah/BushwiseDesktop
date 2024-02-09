@@ -45,18 +45,17 @@ test.describe("Conversation with GVI", () => {
         );
     });
 
-
   test("Navigate to Big Cat Conservation Research in SA page and verify title", async () => {
     await conversationWithGVI.navigateAndVerifyTitle(
       () => conversationWithGVI.navigateToBigCatConservationResearchAPage(),
-      "Big Cat Conservation Research in South Africa - GVI | GVI", 
+      "Big Cat Conservation Research in South Africa | GVI | GVI", 
     );
   });
 
   test("Navigate to Big Cat Conservation Internship in SA page and verify title", async () => {
     await conversationWithGVI.navigateAndVerifyTitle(
       () => conversationWithGVI.navigateToBigCatConservationInternshipAPage(),
-      "Big Cat Conservation Internship in South Africa - GVI | GVI", 
+      "Big Cat Conservation Internship in South Africa | GVI | GVI", 
     );
   });
 
@@ -78,7 +77,7 @@ test.describe("Conversation with GVI", () => {
   test("Navigate to Elephant, Rhino and Buffalo Research in SA page and verify title", async () => {
     await conversationWithGVI.navigateAndVerifyTitle(
       () => conversationWithGVI.navigateToElephantResearchPage(),
-      "Elephant, Rhino and Buffalo Research and Conservation in South Africa - GVI | GVI", 
+      "Elephant, Rhino and Buffalo Research and Conservation in South Africa | GVI | GVI", 
       // 10000
     );
   });
@@ -86,7 +85,7 @@ test.describe("Conversation with GVI", () => {
   test("Navigate to African Wildlife Conservation Teen Volunteering in SA page and verify title", async () => {
     await conversationWithGVI.navigateAndVerifyTitle(
       () => conversationWithGVI.navigateToWildlifConservationTeensVolunteeringPage(),
-      "African Wildlife Conservation Teen Volunteering in South Africa - GVI | GVI", 
+      "African Wildlife Conservation Teen Volunteering in South Africa | GVI | GVI", 
       // 10000
     );
   });
@@ -94,7 +93,7 @@ test.describe("Conversation with GVI", () => {
   test("Navigate to Rhino Poaching Awareness in SA page and verify title", async () => {
     await conversationWithGVI.navigateAndVerifyTitle(
       () => conversationWithGVI.navigateToRhinoPoachingPage(),
-      "Rhino Poaching Awareness in South Africa - GVI | GVI", 
+      "Rhino Poaching Awareness in South Africa | GVI | GVI", 
       // 10000
     );
   });
