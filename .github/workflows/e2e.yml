@@ -1,38 +1,23 @@
 name: "e2e"
-
-on:
-  push:
-    branches:
-      - main
-
+on: [push]
 jobs:
   test-e2e:
     name: Run E2E tests
     runs-on: ubuntu-20.04
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '14'
-
+          node-version: '18'
       - name: Install dependencies
         run: npm ci
-
       - name: Install Playwright
-        run: npx playwright install
-
-      - name: Run tests
+        run: npx playwright install --with-deps
+      - name: Run your tests
         run: npx playwright test tests/home.spec.ts
-
-      - name: Generate Allure report
-        run: npx allure generate --clean
-
-      - name: Deploy Allure report
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: allure-report
+          name: TestResults
+          path: test-results  
