@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx playwright install && your-build-command"
-},
+    "build": "npx playwright install && npx playwright test tests/home.spec.ts && npx allure generate TestResults --clean"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

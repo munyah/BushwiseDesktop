@@ -2,40 +2,58 @@ name: e2e
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  test-e2e:
-    name: Run E2E tests
-    runs-on: ubuntu-20.04
+  build:
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: '14'
+          cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      - run: npm ci
+      - run: npx playwright install
+      - run: npm test
 
-      - name: Install Playwright
-        run: npx playwright install --with-deps
+      - uses: actions/upload-artifact@v2
+        with:
+          name: allure-results
+          path: allure-results
+          retention-days: 20
 
-      - name: Run tests
-        run: npx playwright test tests/home.spec.ts
-
-      - name: Install Netlify CLI
-        run: npm install -g netlify-cli
-
-      - name: Deploy Test Results to Netlify
-        run: netlify deploy --prod --dir=test-results --site=78e12def-efc5-4a58-b1a1-0fb9ce4df111 --auth=nfp_UByWAhEBxAVPDhupvGM7LiG9NoKE3VdQdb6f
-
-      - name: Upload test results
+      - name: Get Allure history
+        uses: actions/checkout@v2
         if: always()
-        uses: actions/upload-artifact@v4
+        continue-on-error: true
         with:
-          name: TestResults
-          path: test-results
+          repository: ${{ github.repository }}
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Test marketplace action
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
+        with:
+          allure_results: allure-results
+          gh_pages: gh-pages
+          allure_report: allure-report
+          allure_history: allure-history
+          keep_reports: 20
+
+      - name: Deploy report to Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
