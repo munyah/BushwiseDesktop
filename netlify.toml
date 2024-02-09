@@ -1,2 +1,2 @@
 [[plugins]]
-package = "playwright"
+package = "@playwright/test"
