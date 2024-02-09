@@ -1,5 +1,0 @@
-[build]
-  base = "/"
-  command = "npx playwright install && npm run build"
-  publish = "allure-results"
-  skip = "none"

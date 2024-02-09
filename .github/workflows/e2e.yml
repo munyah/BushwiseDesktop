@@ -6,36 +6,49 @@ on:
       - main
 
 jobs:
-  test-e2e:
-    name: Run E2E tests
-    runs-on: ubuntu-20.04
+  build:
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
-
-      - name: Install Playwright
-        run: npx playwright install --with-deps
+        run: |
+          npm ci
+          npm run build --if-present
 
       - name: Run tests
         run: npx playwright test tests/home.spec.ts
 
-      - name: Install Netlify CLI
-        run: npm install -g netlify-cli
-
-      - name: Deploy Test Results to Netlify
-        run: netlify deploy --prod --dir=test-results --site=78e12def-efc5-4a58-b1a1-0fb9ce4df111 --auth=nfp_UByWAhEBxAVPDhupvGM7LiG9NoKE3VdQdb6f
-
-      - name: Upload test results
+      - name: Get Allure history
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/checkout@v4
+        continue-on-error: TestResults
         with:
-          name: TestResults
-          path: test-results
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Allure Report action from marketplace
+        if: always()
+        uses: simple-elf/allure-report-action@master
+        id: allure-report
+        with:
+          allure_results: allure-results
+          gh_pages: gh-pages
+          allure_report: allure-report
+          allure_history: allure-history
+
+      - name: Deploy report to Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: allure-history
