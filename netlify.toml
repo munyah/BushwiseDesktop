@@ -3,3 +3,4 @@
   command = "npm run build"
   publish = "allure-results"
   skip = "none"
+  command = "npx playwright install && npm run build"
